@@ -43,21 +43,23 @@ myDeque<T>::~myDeque() {
 
 template <typename T>
 void myDeque<T>::push_back(T& in) {
+	//puts an element to the back of deque
 	node* newLast = new node;
-	newLast->data = in;
+	newLast->data = in; //filling new node
 	newLast->next = NULL;
 	newLast->prev = last;
 	if (last != NULL) {
-		last->next = newLast;
+		last->next = newLast; //linking to the rest
 	}
 	else {
-		first = newLast;
+		first = newLast; // null field means empty queue
 	}
-	last = newLast;
+	last = newLast; //invariant place at queue
 }
 
 template <typename T>
 void myDeque<T>::push_back(T&& in) {
+	//rvalue override, details are the same
 	node* newLast = new node;
 	newLast->data = std::move(in);
 	newLast->next = NULL;
@@ -73,6 +75,7 @@ void myDeque<T>::push_back(T&& in) {
 
 template <typename T>
 void myDeque<T>::push_front(T& in) {
+	//same but in front
 	node* newFirst = new node;
 	newFirst->data = in;
 	newFirst->prev = NULL;
@@ -88,6 +91,7 @@ void myDeque<T>::push_front(T& in) {
 
 template <typename T>
 void myDeque<T>::push_front(T&& in) {
+	//rvalue front
 	node* newFirst = new node;
 	newFirst->data = std::move(in);
 	newFirst->prev = NULL;
@@ -103,6 +107,7 @@ void myDeque<T>::push_front(T&& in) {
 
 template <typename T>
 bool myDeque<T>::pop_back(T* out) {
+	//get value from back and out of deque
 	if (last != NULL) {
 		*T = last->data;
 		last = last->prev;
@@ -115,6 +120,7 @@ bool myDeque<T>::pop_back(T* out) {
 
 template <typename T>
 bool myDeque<T>::pop_front(T* out) {
+	//same but front
 	if (first != NULL) {
 		*out = first->data;
 		first = first->next;
@@ -127,6 +133,7 @@ bool myDeque<T>::pop_front(T* out) {
 
 template <typename T>
 bool myDeque<T>::check_back(T* out) {
+	//pop but without deleting
 	if (last != NULL) {
 		*out = last->data;
 		return true;
@@ -145,6 +152,7 @@ bool myDeque<T>::check_front(T* out) {
 
 template<typename T>
 void myDeque<T>::print() {
+	//for debugging purposes
 	node* iter = first;
 	while (iter != NULL) {
 		std::cout << iter->data << std::endl;
